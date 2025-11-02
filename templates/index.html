@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TakaSmart | Clean Kenya</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(120deg, #00b09b, #96c93d);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            background: rgba(0,0,0,0.2);
+        }
+        .hero {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        footer {
+            margin-top: auto;
+            background: rgba(0,0,0,0.2);
+            text-align: center;
+            padding: 10px;
+        }
+        a.btn {
+            background-color: #fff;
+            color: #00b09b;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        a.btn:hover {
+            background-color: #00b09b;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark px-3">
+        <a class="navbar-brand" href="#">TakaSmart</a>
+        <div class="ms-auto">
+            <a href="{{ url_for('report') }}" class="btn btn-light btn-sm">Report Waste</a>
+            <a href="{{ url_for('admin') }}" class="btn btn-light btn-sm">Admin</a>
+        </div>
+    </nav>
+
+    <div class="container hero">
+        <h1>Welcome to <span style="color: #004d40;">TakaSmart</span></h1>
+        <p class="lead">A community-driven waste reporting platform for a cleaner and greener Kenya 🌍</p>
+        <a href="{{ url_for('report') }}" class="btn btn-lg mt-3">Report an Issue</a>
+    </div>
+
+    <footer>
+        <p>© 2025 TakaSmart | Built for a Cleaner Future</p>
+    </footer>
+</body>
+</html>
+
