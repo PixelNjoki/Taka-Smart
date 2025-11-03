@@ -27,6 +27,8 @@ class WasteReport(db.Model):
     email = db.Column(db.String(120))
     location = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    latitude = db.Column(db.Float)      # 🆕 Added
+    longitude = db.Column(db.Float)     # 🆕 Added
     status = db.Column(db.String(50), default="Pending")
     date_reported = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -45,16 +47,28 @@ def report():
         email = request.form.get("email")
         location = request.form.get("location")
         description = request.form.get("description")
+        latitude = request.form.get("latitude")
+        longitude = request.form.get("longitude")
 
         if not name or not location or not description:
             flash("Please fill in all required fields!", "danger")
             return redirect(url_for("report"))
+        
+        # convert lat/lon to float when present
+        try:
+            lat = float(latitude) if latitude else None
+            lon = float(longitude) if longitude else None
+        except ValueError:
+            lat = None
+            lon = None
 
         new_report = WasteReport(
             name=name,
             email=email,
             location=location,
-            description=description
+            description=description,
+            latitude=lat,
+            longitude=lon
         )
         db.session.add(new_report)
         db.session.commit()

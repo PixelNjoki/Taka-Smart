@@ -12,7 +12,7 @@
         }
         .table th {
             background-color: #00b09b;
-            color: white;
+            color: #000;
         }
         .navbar {
             background-color: #00b09b;
@@ -47,6 +47,14 @@
                     <td>{{ report.location }}</td>
                     <td>{{ report.description }}</td>
                     <td>
+                         {% if report.latitude and report.longitude %}
+      {{ report.latitude }} , {{ report.longitude }}
+    {% else %}
+      No coords
+    {% endif %}
+  </td>
+  <!-- other columns -->
+</tr>
                         <form action="{{ url_for('update', id=report.id) }}" method="POST" class="d-inline">
                             <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
                                 <option value="Pending" {% if report.status == 'Pending' %}selected{% endif %}>Pending</option>
