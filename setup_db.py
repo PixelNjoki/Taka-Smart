@@ -1,6 +1,7 @@
-from app import db, app
+from app import app, db
 
 with app.app_context():
     db.create_all()
-    print("✅ Database setup complete!")
+    print("✅ Database created successfully!")
+
 
