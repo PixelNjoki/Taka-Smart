@@ -1,172 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Taka Smart | Cleaner Kenya</title>
-
-  <!-- Bootstrap -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-
-  <style>
-    :root {
-      --bg: #f8f9fa;
-      --text: #212529;
-      --card-bg: white;
-    }
-
-    body.dark-mode {
-      --bg: #121212;
-      --text: #f8f9fa;
-      --card-bg: #1e1e1e;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Poppins", sans-serif;
-      overflow-x: hidden;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .navbar {
-      background: #198754;
-    }
-
-    .navbar-brand {
-      color: white !important;
-      font-weight: bold;
-    }
-
-    .dark-mode .navbar {
-      background: #2a2a2a;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 90px 20px;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #198754;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: gray;
-      max-width: 600px;
-      margin: 15px auto 30px;
-    }
-
-    .hero-buttons a {
-      margin: 10px;
-      padding: 12px 30px;
-      border-radius: 25px;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .btn-report {
-      background: #198754;
-      color: white;
-    }
-
-    .btn-report:hover {
-      background: #146c43;
-    }
-
-    .btn-dashboard {
-      border: 2px solid #198754;
-      color: #198754;
-    }
-
-    .btn-dashboard:hover {
-      background: #198754;
-      color: white;
-    }
-
-    .illustration {
-      width: 250px;
-      margin: 40px auto 0;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #198754;
-      color: white;
-      margin-top: 60px;
-    }
-
-    .dark-mode footer {
-      background: #2a2a2a;
-    }
-
-    .toggle-btn {
-      cursor: pointer;
-      border: none;
-      background: none;
-      color: white;
-      font-size: 20px;
-    }
-  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TakaSmart — Clean Today, Green Tomorrow</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="">
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand" href="#">Taka Smart</a>
-      <button id="toggleDark" class="toggle-btn">🌙</button>
-    </div>
-  </nav>
+<nav class="navbar">
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="brand">TakaSmart</div>
+  </div>
+  <div>
+    <a class="btn-ghost" href="{{ url_for('report') }}">Report Waste</a>
+    <a class="btn-ghost" href="{{ url_for('admin') }}">Admin Dashboard</a>
+  </div>
+</nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Clean Today, Green Tomorrow 🌍</h1>
-    <p>
-      Taka Smart is your eco-partner in keeping Kenya clean.  
-      Report waste sites instantly, track cleanup progress, and make a positive impact for our communities.
-    </p>
-
-    <div class="hero-buttons">
-      <a href="/report" class="btn btn-report">📸 Report Waste</a>
-      <a href="/admin" class="btn btn-dashboard">📊 View Dashboard</a>
+<section class="hero">
+  <div class="left">
+    <h1>Clean Today — Green Tomorrow</h1>
+    <p>Report waste quickly, share a photo, and help communities keep Kenya beautiful. TakaSmart connects citizens and cleanup teams.</p>
+    <div style="margin-top:18px">
+      <a class="btn-primary" href="{{ url_for('report') }}">📸 Report Waste</a>
+      <a class="btn-ghost" href="{{ url_for('view_reports') }}">📄 See Reports</a>
     </div>
 
-    <!-- Floating illustration -->
-    <img
-      src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png"
-      alt="Eco illustration"
-      class="illustration"
-    />
-  </section>
+    <div style="margin-top:28px;color:var(--muted)">
+      <strong>Total reports:</strong> {{ total }} &nbsp; • &nbsp;
+      <span class="badge badge-pending">Pending: {{ pending }}</span>
+      <span class="badge badge-verified">Verified: {{ verified }}</span>
+      <span class="badge badge-collected">Collected: {{ collected }}</span>
+    </div>
+  </div>
 
-  <footer>
-    <p>© 2025 Taka Smart | Together for a Cleaner Kenya ♻️</p>
-  </footer>
+  <div class="right">
+    <img class="mascot" src="{{ url_for('static', filename='mascot.svg') }}" alt="eco-bot mascot" id="mascot">
+  </div>
+</section>
 
-  <script>
-    // Dark Mode Toggle
-    const toggleDark = document.getElementById('toggleDark');
-    toggleDark.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      toggleDark.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-    });
-  </script>
-
+<script>
+  // small mascot cheer animation when user returns from success
+  const mascot = document.getElementById('mascot');
+  // If URL contains ?cheer=1 then briefly scale mascot
+  if (window.location.search.indexOf('cheer=1') > -1) {
+    mascot.animate([{transform:'scale(1)'},{transform:'scale(1.12)'},{transform:'scale(1)'}], {duration:900, easing:'ease-out'});
+    // show a small toast (using flash messages in templates instead if needed)
+  }
+</script>
 </body>
 </html>
-
-

@@ -1,0 +1,23 @@
+<!-- save as static/mascot.svg -->
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="g" x1="0" x2="1">
+    <stop offset="0" stop-color="#00c853"/>
+    <stop offset="1" stop-color="#00e676"/>
+  </linearGradient>
+ </defs>
+ <rect rx="30" ry="30" width="200" height="200" fill="none"/>
+ <!-- body -->
+ <g transform="translate(20,18)">
+  <rect x="20" y="30" rx="18" ry="18" width="160" height="120" fill="url(#g)" />
+  <circle cx="100" cy="70" r="14" fill="#001" opacity="0.08" />
+  <!-- eyes -->
+  <circle cx="70" cy="68" r="6" fill="#003"/>
+  <circle cx="130" cy="68" r="6" fill="#003"/>
+  <!-- smile -->
+  <path d="M80 92 q20 18 40 0" stroke="#002" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- antenna -->
+  <circle cx="100" cy="12" r="8" fill="#00e676"/>
+  <rect x="97" y="18" width="6" height="20" rx="3" fill="#00e676"/>
+ </g>
+</svg>
