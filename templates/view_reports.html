@@ -4,8 +4,32 @@
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>All Reports — TakaSmart</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+   <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap (for nice layout and components) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Your custom CSS (already in static/style.css) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- Chart.js only on pages that need it; safe to include on all pages -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent py-3">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">TakaSmart</a>
+    <div class="ms-auto d-flex gap-2">
+      <a class="btn btn-outline-light btn-sm" href="{{ url_for('report') }}">Report Waste</a>
+      <a class="btn btn-outline-light btn-sm" href="{{ url_for('view_reports') }}">View Reports</a>
+      <a class="btn btn-outline-light btn-sm" href="{{ url_for('admin') }}">Admin</a>
+    </div>
+  </div>
+</nav>
+
 <nav class="navbar">
   <div class="brand">TakaSmart</div>
   <div>
@@ -43,5 +67,18 @@
     </div>
   </div>
 </div>
+<script>
+  const toggle = document.getElementById('darkToggle') || document.querySelector('.toggle-dark');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('light'); // we used body.light in CSS to switch
+      // optional: store preference
+      localStorage.setItem('taka_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+  }
+  // restore
+  if (localStorage.getItem('taka_theme') === 'light') document.body.classList.add('light');
+</script>
+
 </body>
 </html>
